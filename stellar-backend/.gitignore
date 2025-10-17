@@ -1,0 +1,24 @@
+# Environment variables
+.env
+
+# Rust build artifacts
+/target/
+**/target/
+
+# User project directories
+/projects/
+
+# Cargo lock for library
+Cargo.lock
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+DEPLOYMENT.md

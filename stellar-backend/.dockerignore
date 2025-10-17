@@ -1,0 +1,44 @@
+# Rust build artifacts
+target/
+**/*.rs.bk
+*.pdb
+
+# Project data (will be mounted as volume)
+projects/
+
+# Logs
+logs/
+*.log
+
+# Environment files
+.env
+.env.local
+.env.development
+
+# Git
+.git/
+.gitignore
+
+# Documentation
+*.md
+README.md
+DEPLOYMENT.md
+
+# Docker files
+Dockerfile
+docker-compose.yml
+.dockerignore
+
+# Scripts
+deploy.sh
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db

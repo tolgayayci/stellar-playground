@@ -1,0 +1,71 @@
+version: '3.8'
+
+services:
+  stellar-backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: stellar-playground-backend
+    restart: unless-stopped
+    expose:
+      - "8080"
+    volumes:
+      # Persistent storage for user projects
+      - /data/stellar-projects:/app/projects
+      # Logs
+      - ./logs:/var/log/stellar-playground
+      # Environment file
+      - ./.env.production:/app/.env:ro
+    env_file:
+      - .env.production
+    environment:
+      # Server configuration
+      - RUST_LOG=${RUST_LOG:-info}
+      - HOST=0.0.0.0
+      - PORT=8080
+
+      # Domain configuration
+      - DOMAIN=api.stellarplay.app
+
+      # Stellar configuration
+      - STELLAR_NETWORK=${STELLAR_NETWORK:-testnet}
+      - STELLAR_RPC_URL=${STELLAR_RPC_URL:-https://soroban-testnet.stellar.org}
+      - STELLAR_HORIZON_URL=${STELLAR_HORIZON_URL:-https://horizon-testnet.stellar.org}
+      - STELLAR_NETWORK_PASSPHRASE=${STELLAR_NETWORK_PASSPHRASE:-Test SDF Network ; September 2015}
+
+      # Rate limiting
+      - RATE_LIMIT_WINDOW_MS=${RATE_LIMIT_WINDOW_MS:-900000}
+      - RATE_LIMIT_MAX_REQUESTS=${RATE_LIMIT_MAX_REQUESTS:-100}
+    networks:
+      - stellar-network
+      - proxy
+    labels:
+      # Enable Traefik
+      - "traefik.enable=true"
+      - "traefik.docker.network=proxy"
+
+      # Router for api.stellarplay.app
+      - "traefik.http.routers.stellar-api.rule=Host(`api.stellarplay.app`)"
+      - "traefik.http.routers.stellar-api.entrypoints=websecure"
+      - "traefik.http.routers.stellar-api.tls=true"
+      - "traefik.http.routers.stellar-api.tls.certresolver=letsencrypt"
+
+      # Service configuration
+      - "traefik.http.services.stellar-api.loadbalancer.server.port=8080"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+networks:
+  stellar-network:
+    driver: bridge
+  proxy:
+    external: true
+
+# Volumes for persistent data
+volumes:
+  logs:
+    driver: local
