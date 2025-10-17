@@ -44,6 +44,8 @@ RUN apt-get update && apt-get install -y \
     ca-certificates \
     libssl3 \
     libssl-dev \
+    libdbus-1-dev \
+    libudev-dev \
     build-essential \
     pkg-config \
     && rm -rf /var/lib/apt/lists/*
