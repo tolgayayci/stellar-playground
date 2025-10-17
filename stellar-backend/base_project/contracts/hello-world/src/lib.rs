@@ -17,27 +17,19 @@ impl Counter {
     /// Get the current count
     pub fn get_count(env: Env) -> u32 {
         // Get the counter from storage, or return 0 if not found
-        env.storage()
-            .persistent()
-            .get(&COUNTER_KEY)
-            .unwrap_or(0)
+        env.storage().persistent().get(&COUNTER_KEY).unwrap_or(0)
     }
 
     /// Increment the counter and return the new value
     pub fn increment(env: Env) -> u32 {
         // Get current count
-        let mut count: u32 = env.storage()
-            .persistent()
-            .get(&COUNTER_KEY)
-            .unwrap_or(0);
+        let mut count: u32 = env.storage().persistent().get(&COUNTER_KEY).unwrap_or(0);
 
         // Increment
         count += 1;
 
         // Store the new value
-        env.storage()
-            .persistent()
-            .set(&COUNTER_KEY, &count);
+        env.storage().persistent().set(&COUNTER_KEY, &count);
 
         // Extend the TTL (time to live) for this storage entry
         // This ensures the data persists for at least 100 ledgers
@@ -51,9 +43,7 @@ impl Counter {
 
     /// Reset the counter to zero
     pub fn reset(env: Env) {
-        env.storage()
-            .persistent()
-            .set(&COUNTER_KEY, &0u32);
+        env.storage().persistent().set(&COUNTER_KEY, &0u32);
 
         env.storage()
             .persistent()
@@ -62,9 +52,7 @@ impl Counter {
 
     /// Set the counter to a specific value
     pub fn set_count(env: Env, value: u32) {
-        env.storage()
-            .persistent()
-            .set(&COUNTER_KEY, &value);
+        env.storage().persistent().set(&COUNTER_KEY, &value);
 
         env.storage()
             .persistent()

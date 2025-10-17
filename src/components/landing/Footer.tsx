@@ -1,39 +1,64 @@
-import { Sparkles, Github, ExternalLink, BookOpen, MessageSquare, GraduationCap, Code2, Users } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { cn } from '@/lib/utils';
+import {
+  Sparkles,
+  Github,
+  ExternalLink,
+  BookOpen,
+  MessageSquare,
+  GraduationCap,
+  Code2,
+  Users,
+} from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 
 const FOOTER_LINKS = {
   resources: [
-    { label: 'Stellar Docs', href: 'https://developers.stellar.org/docs', external: true },
-    { label: 'Rust SDK', href: 'https://developers.stellar.org/docs/smart-contracts', external: true },
-    { label: 'Stellar Community', href: 'https://discord.gg/stellardev', external: true },
-    { label: 'GitHub', href: 'https://github.com/stellar-playground/stellar-playground', external: true },
-    { label: 'Discord', href: 'https://discord.gg/stellardev', external: true },
+    {
+      label: "Stellar Docs",
+      href: "https://developers.stellar.org/docs",
+      external: true,
+    },
+    {
+      label: "Rust SDK",
+      href: "https://developers.stellar.org/docs/smart-contracts",
+      external: true,
+    },
+    {
+      label: "Stellar Community",
+      href: "https://discord.gg/stellardev",
+      external: true,
+    },
+    {
+      label: "GitHub",
+      href: "https://github.com/tolgayayci/stellar-playground",
+      external: true,
+    },
+    { label: "Discord", href: "https://discord.gg/stellardev", external: true },
   ],
   legal: [
-    { label: 'Privacy Policy', href: '#' },
-    { label: 'Terms of Use', href: '#' },
+    { label: "Privacy Policy", href: "#" },
+    { label: "Terms of Use", href: "#" },
   ],
 };
 
 const LEARNING_RESOURCES = [
   {
     icon: GraduationCap,
-    title: 'Interactive Tutorials',
-    description: 'Step-by-step guides for beginners',
-    href: 'https://developers.stellar.org/docs/learn/interactive',
+    title: "Interactive Tutorials",
+    description: "Step-by-step guides for beginners",
+    href: "https://developers.stellar.org/docs/learn/interactive",
   },
   {
     icon: Code2,
-    title: 'Code Examples',
-    description: 'Real-world contract examples',
-    href: 'https://developers.stellar.org/docs/smart-contracts/example-contracts',
+    title: "Code Examples",
+    description: "Real-world contract examples",
+    href: "https://developers.stellar.org/docs/smart-contracts/example-contracts",
   },
   {
     icon: Users,
-    title: 'Community Support',
-    description: 'Get help from other developers',
-    href: 'https://discord.gg/stellardev',
+    title: "Community Support",
+    description: "Get help from other developers",
+    href: "https://discord.gg/stellardev",
   },
 ];
 
@@ -49,21 +74,19 @@ export function Footer() {
                 <Sparkles className="h-5 w-5 text-yellow-600 dark:text-yellow-400" />
               </div>
               <div>
-                <span className="text-xl font-bold text-gray-900 dark:text-white">Stellar Playground</span>
+                <span className="text-xl font-bold text-gray-900 dark:text-white">
+                  Stellar Playground
+                </span>
               </div>
             </div>
             <p className="text-muted-foreground mb-6 max-w-sm">
-              The fastest way to build, test, and deploy Stellar smart contracts.
+              The fastest way to build, test, and deploy Stellar smart
+              contracts.
             </p>
             <div className="flex items-center gap-4">
-              <Button
-                variant="outline"
-                size="sm"
-                className="gap-2"
-                asChild
-              >
+              <Button variant="outline" size="sm" className="gap-2" asChild>
                 <a
-                  href="https://github.com/stellar-playground/stellar-playground"
+                  href="https://github.com/tolgayayci/stellar-playground"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
@@ -71,12 +94,7 @@ export function Footer() {
                   Open Source
                 </a>
               </Button>
-              <Button
-                variant="outline"
-                size="sm"
-                className="gap-2"
-                asChild
-              >
+              <Button variant="outline" size="sm" className="gap-2" asChild>
                 <a
                   href="https://developers.stellar.org/docs"
                   target="_blank"
