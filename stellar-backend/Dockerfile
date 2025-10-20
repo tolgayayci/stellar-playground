@@ -64,6 +64,10 @@ RUN cargo install --locked stellar-cli --version 23.0.0
 # Verify Stellar CLI installation
 RUN stellar --version
 
+# Copy stellar CLI to system-wide location so non-root user can access it
+RUN cp /root/.cargo/bin/stellar /usr/local/bin/stellar && \
+    chmod +x /usr/local/bin/stellar
+
 # Create non-root user with specific UID/GID for volume permissions
 RUN groupadd -g 1000 stellar && useradd -u 1000 -g 1000 -m -d /home/stellar stellar
 
