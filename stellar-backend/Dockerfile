@@ -64,20 +64,20 @@ RUN cargo install --locked stellar-cli --version 23.0.0
 # Verify Stellar CLI installation
 RUN stellar --version
 
-# Move Rust toolchain to system-wide location so non-root user can access it
+# Create non-root user with specific UID/GID for volume permissions
+RUN groupadd -g 1000 stellar && useradd -u 1000 -g 1000 -m -d /home/stellar stellar
+
+# Move Rust toolchain to system-wide location and give stellar user ownership
 RUN mkdir -p /opt/cargo /opt/rustup && \
     cp -r /root/.cargo/* /opt/cargo/ && \
     cp -r /root/.rustup/* /opt/rustup/ && \
-    chmod -R 755 /opt/cargo && \
-    chmod -R 755 /opt/rustup
+    chown -R stellar:stellar /opt/cargo && \
+    chown -R stellar:stellar /opt/rustup
 
 # Update environment variables to use system-wide Rust installation
 ENV CARGO_HOME=/opt/cargo
 ENV RUSTUP_HOME=/opt/rustup
 ENV PATH="/opt/cargo/bin:/usr/local/bin:${PATH}"
-
-# Create non-root user with specific UID/GID for volume permissions
-RUN groupadd -g 1000 stellar && useradd -u 1000 -g 1000 -m -d /home/stellar stellar
 
 WORKDIR /app
 
